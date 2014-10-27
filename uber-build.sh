@@ -159,7 +159,7 @@ EOF
 EOF
 
   set +e
-  mvn "${MAVEN_ARGS[@]}" compile >&7 2>&7
+  mvn "${MAVEN_ARGS[@]}" compile # >&7 2>&7
   RES=$?
   set -e
 
@@ -731,7 +731,7 @@ function stepCheckConfiguration () {
 
   if ${SCALA_REBUILD}
   then
-    checkParameters "SCALA_GIT_REPO" "SCALA_GIT_HASH" "SCALA_DIR"
+    checkParameters "SCALA_GIT_REPO" "SCALA_GIT_HASH" "SCALA_DIR" "SCALA_MAVEN_REPO_URL"
   fi
 
   checkParameters "SBT_VERSION"
@@ -868,7 +868,7 @@ function extrapolateVersionPropertiesFile () {
 
     # get the pom file
     set +e
-    wget -O "${SCALA_LIBRARY_ALL_POM}"  "http://repo1.maven.org/maven2/org/scala-lang/scala-library-all/${FULL_SCALA_VERSION}/scala-library-all-${FULL_SCALA_VERSION}.pom"
+    wget -O "${SCALA_LIBRARY_ALL_POM}"  "${SCALA_MAVEN_REPO_URL}/org/scala-lang/scala-library-all/${FULL_SCALA_VERSION}/scala-library-all-${FULL_SCALA_VERSION}.pom"
     RES=$?
     set -e
 
